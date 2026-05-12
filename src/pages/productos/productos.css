@@ -1,0 +1,86 @@
+.productos-page {
+  display: grid;
+  gap: 1.5rem;
+  padding: 1rem;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.form-card,
+.list-card {
+  background: #ffffff;
+  border: 1px solid #dcdcdc;
+  border-radius: 12px;
+  padding: 1.25rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.form-card h2,
+.list-card h2 {
+  margin-top: 0;
+}
+
+label {
+  display: block;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+input {
+  width: 100%;
+  padding: 0.7rem 0.85rem;
+  border: 1px solid #c2c2c2;
+  border-radius: 8px;
+  margin-top: 0.35rem;
+  font-size: 1rem;
+}
+
+.button-row {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  border-radius: 8px;
+  padding: 0.85rem 1.25rem;
+  font-weight: 700;
+  color: white;
+  background: #2563eb;
+}
+
+button.secondary {
+  background: #6b7280;
+}
+
+button.danger {
+  background: #dc2626;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead th {
+  text-align: left;
+  padding: 0.85rem 0.75rem;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+tbody tr:hover {
+  background: #f9fafb;
+}
+
+td {
+  padding: 0.85rem 0.75rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.empty-state {
+  color: #6b7280;
+  margin: 1rem 0;
+}
