@@ -25,7 +25,7 @@ function parseProducto(raw: RawProducto): Producto {
 })
 export class ProductoService {
 
-  private baseUrl = 'http://localhost:8081/api/productos';
+  private baseUrl = 'https://mi-backend.onrender.com/api/productos';
 
   constructor(private http: HttpClient) {}
 
