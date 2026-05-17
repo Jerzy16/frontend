@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Producto } from '../models/producto';
+import { environment } from '../environments/environment';
 
 interface RawProducto {
   _id?: { $oid: string } | string;
@@ -25,7 +26,7 @@ function parseProducto(raw: RawProducto): Producto {
 })
 export class ProductoService {
 
-  private baseUrl = 'https://mi-backend.onrender.com/api/productos';
+  private baseUrl = environment.apiUrl + '/api/productos';
 
   constructor(private http: HttpClient) {}
 
@@ -59,3 +60,5 @@ export class ProductoService {
     return this.http.delete<void>(`${this.baseUrl}/${id}`);
   }
 }
+export { Producto };
+
