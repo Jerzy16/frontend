@@ -1,0 +1,20 @@
+<div class="sidebar">
+  <div class="logo">
+    <h3>TiendasFigo</h3>
+  </div>
+  <nav>
+    <ul>
+      <li [class.active]="active === 'productos'" (click)="changePage('productos')">
+        <i class="bi bi-box"></i>
+        Productos
+      </li>
+      <li [class.active]="active === 'categorias'" (click)="changePage('categorias')">
+        <i class="bi bi-graph-up"></i>
+        Categorías
+      </li>
+    </ul>
+  </nav>
+  <div class="sidebar-footer">
+    <span>Versión 1.0</span>
+  </div>
+</div>

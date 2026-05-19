@@ -1,0 +1,137 @@
+<app-sidebar [active]="selectedPage" (selection)="changePage($event)"></app-sidebar>
+
+<div class="main">
+  <div *ngIf="selectedPage === 'dashboard'" class="dashboard-grid">
+    <div class="summary-card card-primary">
+      <span>Productos Totales</span>
+      <strong>{{ totalProductos }}</strong>
+    </div>
+    <div class="summary-card card-secondary">
+      <span>Stock Total</span>
+      <strong>{{ totalStock }}</strong>
+    </div>
+    <div class="summary-card card-success">
+      <span>Activos</span>
+      <strong>{{ totalActivos }}</strong>
+    </div>
+    <div class="summary-card card-danger">
+      <span>Inactivos</span>
+      <strong>{{ totalInactivos }}</strong>
+    </div>
+  </div>
+
+  <div *ngIf="selectedPage === 'categorias'" class="categories-panel">
+    <div class="categories-header">
+      <div>
+        <h2>Gestión de Categorías</h2>
+      </div>
+      <button class="btn btn-success btn-lg" type="button" (click)="abrirModalCategoria()">
+        <i class="bi bi-plus-lg"></i>
+        Nueva Categoría
+      </button>
+    </div>
+
+   <div class="categories-toolbar d-flex align-items-center gap-3">
+  
+  <div class="search-box search-box--small">
+    <i class="bi bi-search"></i>
+    <input
+      type="text"
+      placeholder="Buscar categoría..."
+      [(ngModel)]="categoriaBusqueda"
+      (input)="buscarCategorias()"
+    />
+  </div>
+
+  <div class="select-box">
+    <select [(ngModel)]="categoriaEstadoFiltro" (change)="buscarCategorias()">
+      <option value="Activo">Activo</option>
+      <option value="Inactivo">Inactivo</option>
+    </select>
+  </div>
+
+</div>
+
+    <div class="category-table-wrapper">
+      <table class="category-table">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Categoría</th>
+            <th>Descripción</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of categoriasFiltradas">
+            <td>{{ item.id }}</td>
+            <td>
+              <div class="category-name-cell">
+                <div class="category-icon">
+                  <i class="bi bi-box-seam"></i>
+                </div>
+                <div>
+                  <strong>{{ item.nombre }}</strong>
+                  <p>{{ item.cantidad }} productos</p>
+                </div>
+              </div>
+            </td>
+            <td>{{ item.descripcion }}</td>
+            <td>
+              <span class="badge category-status"
+                [class.status-activo]="item.estado === 'Activo'"
+                [class.status-inactiva]="item.estado === 'Inactiva'"
+              >
+                {{ item.estado }}
+              </span>
+            </td>
+            <td>
+              <button class="btn btn-sm btn-warning me-2" type="button" (click)="editarCategoria(item)">
+                <i class="bi bi-pencil"></i>
+              </button>
+              <button class="btn btn-sm btn-danger" type="button" (click)="eliminarCategoria(item)">
+                <i class="bi bi-trash"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="category-modal" *ngIf="modalCategoriaVisible">
+      <div class="category-modal-backdrop" (click)="cerrarModalCategoria()"></div>
+      <div class="category-modal-content">
+        <div class="modal-header">
+          <h3>{{ categoriaEditando ? 'Editar categoría' : 'Nueva categoría' }}</h3>
+          <button class="close-button" type="button" (click)="cerrarModalCategoria()">×</button>
+        </div>
+        <div class="modal-body">
+          <label>
+            Nombre de categoría
+            <input type="text" [(ngModel)]="categoriaForm.nombre" />
+          </label>
+          <label>
+            Descripción
+            <textarea rows="3" [(ngModel)]="categoriaForm.descripcion"></textarea>
+          </label>
+          <label>
+            Estado
+            <select [(ngModel)]="categoriaForm.estado">
+              <option value="Activo">Activo</option>
+              <option value="Inactiva">Inactiva</option>
+            </select>
+          </label>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" (click)="cerrarModalCategoria()">Cancelar</button>
+          <button class="btn btn-primary" type="button" (click)="guardarCategoria()">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="selectedPage === 'productos'">
+    <app-productos></app-productos>
+  </div>
+</div>

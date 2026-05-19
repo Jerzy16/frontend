@@ -1,0 +1,159 @@
+<div class="productos-page">
+
+  <div class="page-top">
+    <div>
+      <h2>Administrar Productos</h2>
+    </div>
+
+    <button class="btn btn-success btn-lg" (click)="abrirModal()">
+      <i class="bi bi-plus-lg"></i>
+      Nuevo Producto
+    </button>
+  </div>
+
+  <div class="panel-card">
+    <div class="panel-header">
+      <div class="search-box">
+        <i class="bi bi-search"></i>
+        <input
+          type="text"
+          placeholder="Buscar producto..."
+          [(ngModel)]="busqueda"
+          (keyup)="buscar()"
+        />
+      </div>
+      <button class="btn btn-outline-light" type="button" (click)="toggleFiltros()">
+        <i class="bi bi-funnel"></i>
+        Filtros
+      </button>
+    </div>
+
+    <div class="filters-panel" *ngIf="mostrarFiltros">
+      <div class="filter-item">
+        <label>
+          Categoría
+          <select [(ngModel)]="filtroCategoria" (change)="aplicarFiltros()">
+            <option value="">Todas las categorías</option>
+            <option *ngFor="let categoria of categorias" [value]="categoria">{{ categoria }}</option>
+          </select>
+        </label>
+      </div>
+      <div class="filter-item">
+        <label>
+          Estado
+          <select [(ngModel)]="filtroEstado" (change)="aplicarFiltros()">
+            <option value="">Todos los estados</option>
+            <option *ngFor="let estado of estados" [value]="estado">{{ estado }}</option>
+          </select>
+        </label>
+      </div>
+      <div class="filter-actions">
+        <button class="btn btn-secondary" type="button" (click)="limpiarFiltros()">Limpiar</button>
+      </div>
+    </div>
+
+    <div class="producto-table-wrapper">
+      <table class="producto-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Imagen</th>
+            <th>Nombre</th>
+            <th>Categoría</th>
+            <th>Precio</th>
+            <th>Stock</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let p of productosFiltrados">
+            <td>{{ 1 + productosFiltrados.indexOf(p) }}</td>
+            <td>
+              <img [src]="p.imagenUrl" class="img-producto" alt="{{ p.nombre }}" />
+            </td>
+            <td>{{ p.nombre }}</td>
+            <td>
+              <span class="badge category">{{ p.categoria }}</span>
+            </td>
+            <td class="precio">S/ {{ p.precio }}</td>
+            <td>{{ p.stock }}</td>
+            <td>
+              <span class="badge status"
+                [ngClass]="{
+                  'status-activo': p.estado.toLowerCase() === 'activo',
+                  'status-inactivo': p.estado.toLowerCase() === 'inactivo',
+                  'status-otro': p.estado.toLowerCase() !== 'activo' && p.estado.toLowerCase() !== 'inactivo'
+                }"
+              >{{ p.estado }}</span>
+            </td>
+            <td>
+              <button class="btn btn-sm btn-warning me-2" (click)="editar(p)">
+                <i class="bi bi-pencil"></i>
+              </button>
+              <button class="btn btn-sm btn-danger" (click)="eliminar(p.id!)">
+                <i class="bi bi-trash"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<div class="modal-backdrop-custom" *ngIf="mostrarModal">
+  <div class="modal-custom">
+    <div class="modal-header">
+      <h3>{{ editando ? 'Editar Producto' : 'Nuevo Producto' }}</h3>
+      <button class="close-btn" type="button" (click)="mostrarModal = false">
+        <i class="bi bi-x-lg"></i>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      <label>
+        Nombre
+        <input type="text" placeholder="Nombre" [(ngModel)]="producto.nombre" />
+      </label>
+
+      <label>
+        Categoría
+        <input type="text" placeholder="Categoría" [(ngModel)]="producto.categoria" />
+      </label>
+
+      <label>
+        Precio
+        <input type="number" placeholder="Precio" [(ngModel)]="producto.precio" />
+      </label>
+
+      <label>
+        Stock
+        <input type="number" placeholder="Stock" [(ngModel)]="producto.stock" />
+      </label>
+
+      <label>
+        Estado
+        <select [(ngModel)]="producto.estado">
+          <option *ngFor="let estado of estados" [value]="estado">{{ estado }}</option>
+        </select>
+      </label>
+
+      <label>
+        Imagen URL
+        <input type="text" placeholder="Imagen URL" [(ngModel)]="producto.imagenUrl" />
+      </label>
+
+      <label>
+        Descripción
+        <textarea placeholder="Descripción" [(ngModel)]="producto.descripcion"></textarea>
+      </label>
+    </div>
+
+    <div class="buttons">
+      <button class="btn btn-secondary" (click)="mostrarModal = false">Cancelar</button>
+      <button class="btn btn-success" (click)="guardar()">Guardar</button>
+    </div>
+  </div>
+</div>

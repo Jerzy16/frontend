@@ -1,0 +1,20 @@
+/* You can add global styles to this file, and also import other style files */
+/* App component styles can remain empty or hold root-specific overrides. */
+
+* {
+    box-sizing: border-box;
+}
+
+button {
+    cursor: pointer;
+}
+
+.btn-outline-light {
+    border: 1px solid rgba(255,255,255,0.16);
+    background: transparent;
+    color: #f4f7ff;
+}
+
+.btn-outline-light:hover {
+    background: rgba(255,255,255,0.06);
+}
