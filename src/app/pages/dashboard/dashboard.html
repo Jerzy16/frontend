@@ -1,24 +1,6 @@
 <app-sidebar [active]="selectedPage" (selection)="changePage($event)"></app-sidebar>
 
 <div class="main">
-  <div *ngIf="selectedPage === 'dashboard'" class="dashboard-grid">
-    <div class="summary-card card-primary">
-      <span>Productos Totales</span>
-      <strong>{{ totalProductos }}</strong>
-    </div>
-    <div class="summary-card card-secondary">
-      <span>Stock Total</span>
-      <strong>{{ totalStock }}</strong>
-    </div>
-    <div class="summary-card card-success">
-      <span>Activos</span>
-      <strong>{{ totalActivos }}</strong>
-    </div>
-    <div class="summary-card card-danger">
-      <span>Inactivos</span>
-      <strong>{{ totalInactivos }}</strong>
-    </div>
-  </div>
 
   <div *ngIf="selectedPage === 'categorias'" class="categories-panel">
     <div class="categories-header">
